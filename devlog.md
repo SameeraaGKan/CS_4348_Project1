@@ -12,7 +12,9 @@ Phase 1 - This session I'm planning on building the encryption program, well a p
 # 10-16-2026 10:52pm
 Yesterday, I just read the project pdf got a better understanding of what it is, now I'll developing it. It's the backend, so
 it only has to read one command per line from stdin and print one response
-line. Plan:
+line. 
+
+Plan:
 - Loop over stdin; split each line into command and argument at the first space.
 - Keep the passkey in a variable that persists between commands (None until PASS is called).
 - Write one function that does Vigenère in both directions, using a sign
@@ -28,7 +30,8 @@ Decisions:
   waits on a reply that doesn't come.
 - QUIT prints nothing, so the driver must not try to read a response after it.
 
-Session end (after): Encryption program works on its own. Tested with the
+Session end (after): 
+Encryption program works on its own. Tested with the
 spec example: ENCRYPT before PASS gives "ERROR Password not set", then
 PASS HELLO gives "RESULT", then ENCRYPT HELLO gives "RESULT OIWWC".
 Checked the first letter by hand: H(7) + H(7) = 14 = O.
@@ -41,10 +44,10 @@ Tested: encrypt then decrypt returns the original text; key shorter than
 text repeats correctly.
 Next: the logger.
 
-10-16-2026 2:17pm
-Starting with the logger since it's the simplest and has no
-dependencies. Plan is to read stdin line by line, split off the first word as ACTION, and write the timestamped line. Not sure yet whether I need to flush after every write. 
+# 10-16-2026 2:17pm
+Starting with the logger since it's the simplest and has no dependencies. Plan is to read stdin line by line, split off the first word as ACTION, and write the timestamped line. Not sure yet whether I need to flush after every write. 
 I just finishedd writing it but idk if it really runs cuz I need to write the driver program - it does "run" cuz i added a test statement - pushing it to github
 Designing and writing the driver program now 
+
 
 
