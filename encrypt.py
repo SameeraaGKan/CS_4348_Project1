@@ -34,7 +34,7 @@ for line in sys.stdin:
         
         # Store the new passkey and confirm. The spec says a successful
         # PASS responds with just "RESULT" and nothing after it.
-        key == arg
+        key = arg
         # flush=True is required: stdout to a pipe is buffered, so without
         # it the driver would block waiting for a reply that is still
         # sitting in this process's buffer.

@@ -27,3 +27,24 @@ Decisions:
 - Unknown commands return "ERROR Unknown command" so the driver never
   waits on a reply that doesn't come.
 - QUIT prints nothing, so the driver must not try to read a response after it.
+
+Session end (after): Encryption program works on its own. Tested with the
+spec example: ENCRYPT before PASS gives "ERROR Password not set", then
+PASS HELLO gives "RESULT", then ENCRYPT HELLO gives "RESULT OIWWC".
+Checked the first letter by hand: H(7) + H(7) = 14 = O.
+Problems / learned:
+- Used print(..., flush=True). Stdout to a pipe is buffered, so without
+  flush the driver would hang waiting for the reply.
+- Decrypt needed no special wraparound handling because Python's % gives
+  a non-negative result for negative numbers.
+Tested: encrypt then decrypt returns the original text; key shorter than
+text repeats correctly.
+Next: the logger.
+
+10-16-2026 2:17pm
+Starting with the logger since it's the simplest and has no
+dependencies. Plan is to read stdin line by line, split off the first word as ACTION, and write the timestamped line. Not sure yet whether I need to flush after every write. 
+I just finishedd writing it but idk if it really runs cuz I need to write the driver program - it does "run" cuz i added a test statement - pushing it to github
+Designing and writing the driver program now 
+
+
