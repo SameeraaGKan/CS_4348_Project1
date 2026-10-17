@@ -58,12 +58,18 @@ Plan:
 - Keep history as a plain list in memory, since the spec says it only lasts for this run.
 
   # 10-16-2026 11:43pm
-  continuing the driver function
+continuing the driver function
   Decisions:
 - One shared function, pick_string(), handles the history-or-new choice for all three commands instead of copying the logic three times. It returns the string and whether it came from history, or None if the input was invalid.
 - Choosing 0 in the history menu goes back to the h/n question, so the user can escape the history and enter a new string.
 - Validation uses str.isalpha(), which also rejects empty strings, spaces, digits, and symbols, so "Hello World!" gives an error instead of a crash.
 - Everything is uppercased in the driver before it is sent, which gives case insensitivity ("hello" and "Hello" produce the same ciphertext).
+
+# 10-17-2026 11:53am
+
+Today, I've decided to finish off the driver program. So, I'm gonna work on the command handlers now, then the main loop in the afternoon and finally test out the program and sumbit it by tonight.
+
+Decisions:
 - History stores entered strings (for encrypt/decrypt) and results. It never stores passwords. The log doesn't either; the password command logs only "Passkey set" or a failure message.
 - Strings picked from history are not added again, so history has no duplicates.
 - Used sys.executable instead of "python3" to launch the children so they run under the same interpreter as the driver. 

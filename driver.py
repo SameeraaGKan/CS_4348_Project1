@@ -70,3 +70,50 @@ def pick_string(prompt_text):
         else:
             print("Please enter h or n.")
 
+# ---------- Command handlers ----------
+def do_password():
+    pw, _ = pick_string("Enter password: ")
+    if pw is None:
+        print("Password not set.")
+        log("PASSWORD", "Invalid input rejected")
+        return
+    resp = send(f"PASS {pw}")
+    # Never log or store the password itself, only the outcome.
+    if resp.startswith("RESULT"):
+        print("Passkey set.")
+        log("PASSWORD", "Passkey set")
+    else:
+        print(resp)
+        log("PASSWORD", f"Failed: {resp}")
+
+
+def do_crypt(kind):
+    """kind is 'ENCRYPT' or 'DECRYPT'."""
+    s, from_history = pick_string(f"Enter string to {kind.lower()}: ")
+    if s is None:
+        log(kind, "Invalid input rejected")
+        return
+    if not from_history:
+        history.append(s)  # only new entries, so history has no duplicates
+    log(kind, s)
+
+    resp = send(f"{kind} {s}")
+    if resp.startswith("RESULT"):
+        result = resp.split(" ", 1)[1] if " " in resp else ""
+        print(f"Result: {result}")
+        history.append(result)
+        log("RESULT", result)
+    else:
+        print(resp)  # e.g. "ERROR Password not set"
+        log("ERROR", resp)
+
+
+def show_history():
+    if not history:
+        print("History is empty.")
+    else:
+        for i, item in enumerate(history, 1):
+            print(f"  {i}. {item}")
+    log("HISTORY", f"Displayed {len(history)} entries")
+
+
