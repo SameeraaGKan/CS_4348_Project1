@@ -46,8 +46,23 @@ Next: the logger.
 
 # 10-16-2026 2:17pm
 Starting with the logger since it's the simplest and has no dependencies. Plan is to read stdin line by line, split off the first word as ACTION, and write the timestamped line. Not sure yet whether I need to flush after every write. 
+
 I just finishedd writing it but idk if it really runs cuz I need to write the driver program - it does "run" cuz i added a test statement - pushing it to github
 Designing and writing the driver program now 
 
+
+# 10-16-2026 4:30pm
+Now I'll start implementing the driver program, which I'm thinking to be the largest part of the program its supposed to launch the logger and the encryption program as child processes, connects to them with pipes, and runs the user menu.
+
+Plan:
+- Get started with the setup - get the logger and the encrypt functions as sub processes 
+- Start both children with subprocess.Popen. The logger gets stdin=PIPE;
+  the encryptor gets stdin=PIPE and stdout=PIPE. Use text=True so I can
+  read and write strings instead of bytes.
+- Write two small helpers: log(action, msg) writes a line to the logger,
+  and send(cmd) writes to the encryptor and reads back one response line.
+- Main loop: print the menu, read a command, and dispatch to a handler.
+- Keep history as a plain list in memory, since the spec says it only
+  lasts for this run.
 
 
