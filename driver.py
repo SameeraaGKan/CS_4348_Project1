@@ -38,3 +38,35 @@ def send(cmd):
 def valid(s):
     """True only if s is non-empty and contains letters only."""
     return s.isalpha()
+
+# ---------- Shared "history or new string?" logic ----------
+def pick_string(prompt_text):
+    """
+    Lets the user choose a string from history or type a new one.
+    Returns (string, from_history), or (None, False) if the input was invalid.
+    New strings are uppercased here, which gives case insensitivity.
+    """
+    while True:
+        choice = input("Use history (h) or enter new string (n)? ").strip().lower()
+        if choice == "n":
+            s = input(prompt_text).strip()
+            if not valid(s):
+                print("Error: letters only, no spaces or symbols.")
+                return None, False
+            return s.upper(), False
+        elif choice == "h":
+            if not history:
+                print("History is empty.")
+                continue
+            for i, item in enumerate(history, 1):
+                print(f"  {i}. {item}")
+            print("  0. Enter a new string instead")
+            sel = input("Select number: ").strip()
+            if sel == "0":
+                continue  # back to the h/n question so the user can pick 'n'
+            if sel.isdigit() and 1 <= int(sel) <= len(history):
+                return history[int(sel) - 1], True
+            print("Invalid selection.")
+        else:
+            print("Please enter h or n.")
+
