@@ -77,7 +77,7 @@ Reflection: Ran the driver end to end and checked the log file (mylog.txt).
 - Decrypted HELLO as well, which gave SETTS.
 - The log has START, each command, each result and EXIT, in order, with no password in it.
 Problems:
-- The log line for the error read "[ERROR] ERROR Password not set" because I logged the whole reply from the encryptor. <fixed by stripping the prefix / left as is: choose one>.
+- The log line for the error read "[ERROR] ERROR Password not set" because I logged the whole reply from the encryptor. 
 - History showed 3 entries: HELLO twice and WEDDK. The first HELLO came from the failed encrypt, because the driver saves new strings to history before sending them, so a failed request still ends up in history. That matches the spec, so I kept it.
 
 # 10-18-2026 1:34am (second test run, Windows PowerShell)
@@ -90,7 +90,7 @@ Reflection: Tested more cases.
 - Quit exited cleanly.
 
 # 10-18-2026 1:45am (final checks)
-Reflection: <only what you actually ran, e.g.>
+Reflection: 
 - "hello" vs "Hello" give the same result: yes.
 - Invalid history selection: "History is empty.".
 - Unknown command at the menu: "Unknown command."
