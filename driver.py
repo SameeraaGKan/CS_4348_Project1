@@ -116,4 +116,37 @@ def show_history():
             print(f"  {i}. {item}")
     log("HISTORY", f"Displayed {len(history)} entries")
 
+# ---------- Main loop ----------
+log("START", "Driver started.")
 
+while True:
+    print("\nCommands: password | encrypt | decrypt | history | quit")
+    try:
+        cmd = input("> ").strip().lower()
+    except EOFError:  # Ctrl-D: treat as quit
+        cmd = "quit"
+    log("COMMAND", cmd)
+
+    if cmd == "password":
+        do_password()
+    elif cmd == "encrypt":
+        do_crypt("ENCRYPT")
+    elif cmd == "decrypt":
+        do_crypt("DECRYPT")
+    elif cmd == "history":
+        show_history()
+    elif cmd == "quit":
+        break
+    else:
+        print("Unknown command.")
+        log("ERROR", f"Unknown command: {cmd}")
+
+# ---------- Shutdown ----------
+enc.stdin.write("QUIT\n")      # QUIT has no reply, so don't readline here
+enc.stdin.flush()
+log("EXIT", "Driver exiting.")  # must come before telling the logger to quit
+logger.stdin.write("QUIT\n")
+logger.stdin.flush()
+enc.wait()
+logger.wait()
+print("Goodbye.")
