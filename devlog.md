@@ -19,8 +19,7 @@ Plan:
 - Keep the passkey in a variable that persists between commands (None until PASS is called).
 - Write one function that does Vigenère in both directions, using a sign of +1 for encrypt and -1 for decrypt, rather than two near-identical functions.
 - Respond with RESULT or ERROR as the spec describes.
-Unsure about: what to do with unknown commands (spec doesn't say), and
-whether the encryptor should validate input or leave that to the driver.
+Unsure about: what to do with unknown commands (spec doesn't say), and whether the encryptor should validate input or leave that to the driver.
 
 Decisions:
 - The spec says I can assume uppercase letters only, so I'm not validating here. The driver will validate and uppercase before sending anything.
@@ -28,10 +27,7 @@ Decisions:
 - QUIT prints nothing, so the driver must not try to read a response after it.
 
 Session end (after):
-The encryption program works on its own. Tested with the spec example:
-ENCRYPT before PASS gives "ERROR Password not set", then PASS HELLO gives
-"RESULT", then ENCRYPT HELLO gives "RESULT OIWWC". Checked the first letter
-by hand: H(7) + H(7) = 14 = O.
+The encryption program works on its own. Tested with the spec example: ENCRYPT before PASS gives "ERROR Password not set", then PASS HELLO gives "RESULT", then ENCRYPT HELLO gives "RESULT OIWWC". Checked the first letter by hand: H(7) + H(7) = 14 = O.
 Problems / learned:
 - Used print(..., flush=True). Stdout to a pipe is buffered, so without flush the driver would hang waiting for the reply.
 - Decrypt needed no special wraparound handling because Python's % gives a non-negative result for negative numbers.
