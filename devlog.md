@@ -94,7 +94,7 @@ Reflection:
 - "hello" vs "Hello" give the same result: yes.
 - Invalid history selection: "History is empty.".
 - Unknown command at the menu: "Unknown command."
-- Ctrl-D / Ctrl-Z then Enter: "Goodbye".
+- Ctrl-D / Ctrl-Z then Enter: Ctrl-D ended the program and printed Goodbye.
 What I'd improve: label history entries as "input" or "result" so they're
 easier to tell apart, and validate input in the encryptor too as a safety
 check.
